@@ -1,0 +1,205 @@
+library(DICE)#
+#
+mod_name = CA # HK VN, SG, CN #
+test = get.DICE.data(data_source = NULL, mod_level = 2, mod_name = c(NAME_2 = "Canada"), fit_names = "all", #
+	fit_level = 2, RegState = NULL, year = 2003, db_opts = list(DICE_db = "predsci", CDC_server = FALSE), #
+	disease = "sars", all_years_flag = T, all_cad_clim = T)
+test$mod
+test$model
+test
+names(test)
+mydata = test$mydata#
+#
+all_years_epi = test$all_years_epi
+mydata
+mydata$model
+plot(mydata$model$raw, type = 'l')
+all_years_epi$model$raw
+names(mydata)
+mydata$days
+library(epitools)
+mon = epidate(mydata$dates, format = "%m/%d/%y")$month2
+mon
+mydata$FY
+library(DICE)#
+library(epitools)#
+mod_name_vec = c("CA", "HK", "VN", "SG", "CN")#
+#
+nc = length(mod_name_vec)#
+#
+p = list()#
+icount = 0
+i=1
+test = get.DICE.data(data_source = NULL, mod_level = 2, mod_name = c(NAME_2 = mod_name_vec[i]), fit_names = "all", #
+		fit_level = 2, RegState = NULL, year = 2003, db_opts = list(DICE_db = "predsci", CDC_server = FALSE), #
+		disease = "sars", all_years_flag = T, all_cad_clim = T)#
+#
+	mydata = test$mydata#
+#
+	all_years_epi = test$all_years_epi#
+	my.name = mydata$model$name#
+	values = mydata$model$raw#
+	days = mydata$days#
+	ndays = mydata$ndays#
+	mon = epidate(mydata$dates, format = "%m/%d/%y")$month2#
+	mday = epidate(mydata$dates, format = "%m/%d/%y")$mday#
+	x.axis.labels = paste0(mon, "-", mday) #
+	df2 = data.frame(x=1:ndays, values = values, type = rep(my.name, ndays))
+ndays
+names(mydata)
+mydata = test$mydata#
+#
+	all_years_epi = test$all_years_epi#
+	my.name = mydata$model$name#
+	values = mydata$model$raw#
+	days = mydata$days#
+	ndays = mydata$nperiods#
+	mon = epidate(mydata$dates, format = "%m/%d/%y")$month2#
+	mday = epidate(mydata$dates, format = "%m/%d/%y")$mday#
+	x.axis.labels = paste0(mon, "-", mday) #
+	df2 = data.frame(x=1:ndays, values = values, type = rep(my.name, ndays))#
+	main = paste0(my.name,"",FY," SARS  Cases")#
+#
+	icount = icount + 1#
+	p[[icount]] = ggplot(df2, aes(x = x, y = values)) +#
+    geom_bar(stat = "identity", fill = "#35978f", show.legend=FALSE) +#
+    scale_x_continuous(name = "",  breaks = 1:ndays, #
+    labels = x.axis.labels) +#
+    #scale_x_continuous(name = "") +    #
+    scale_y_continuous(name = " ") +#
+    ggtitle(main) +#
+    theme(axis.text.x=element_text(angle=90,hjust=1))
+icount
+FY = mydata$FY#
+	my.name = mydata$model$name#
+	values = mydata$model$raw#
+	days = mydata$days#
+	ndays = mydata$nperiods#
+	mon = epidate(mydata$dates, format = "%m/%d/%y")$month2#
+	mday = epidate(mydata$dates, format = "%m/%d/%y")$mday#
+	x.axis.labels = paste0(mon, "-", mday) #
+	df2 = data.frame(x=1:ndays, values = values, type = rep(my.name, ndays))#
+	main = paste0(my.name,"",FY," SARS  Cases")
+p[[icount]] = ggplot(df2, aes(x = x, y = values)) +#
+    geom_bar(stat = "identity", fill = "#35978f", show.legend=FALSE) +#
+    scale_x_continuous(name = "",  breaks = 1:ndays, #
+    labels = x.axis.labels) +#
+    #scale_x_continuous(name = "") +    #
+    scale_y_continuous(name = " ") +#
+    ggtitle(main) +#
+    theme(axis.text.x=element_text(angle=90,hjust=1))
+p
+mydata = test$mydata#
+#
+	all_years_epi = test$all_years_epi#
+	FY = mydata$FY#
+	my.name = mydata$model$name#
+	values = mydata$model$raw#
+	days = mydata$days#
+	ndays = mydata$nperiods#
+	iselect = seq(from = 1, to = ndays, b = 7)#
+	mon = epidate(mydata$dates, format = "%m/%d/%y")$month2#
+	mday = epidate(mydata$dates, format = "%m/%d/%y")$mday#
+	x.axis.labels = rep("", ndays) #
+	x.axis.labels[iselect] = paste0(mon[iselect], "-", mday[iselect]) #
+	df2 = data.frame(x=1:ndays, values = values, type = rep(my.name, ndays))#
+	main = paste0(my.name," ",FY," SARS  Cases")
+p[[icount]] = ggplot(df2, aes(x = x, y = values)) +#
+    geom_bar(stat = "identity", fill = "#35978f", show.legend=FALSE) +#
+    scale_x_continuous(name = "",  breaks = 1:ndays, #
+    labels = x.axis.labels) +#
+    #scale_x_continuous(name = "") +    #
+    scale_y_continuous(name = " ") +#
+    ggtitle(main) +#
+    theme(axis.text.x=element_text(angle=90,hjust=1))
+p[[1]]
+mod_name_vec = c("CA", "HK", "VN", "SG", "CN")#
+#
+colvec = c("steelblue3","firebrick3",'mediumpurple3','salmon','tan3')#
+nc = length(mod_name_vec)#
+#
+p = list()#
+icount = 0#
+#
+for (i in 1:nc) {#
+	test = get.DICE.data(data_source = NULL, mod_level = 2, mod_name = c(NAME_2 = mod_name_vec[i]), fit_names = "all", #
+		fit_level = 2, RegState = NULL, year = 2003, db_opts = list(DICE_db = "predsci", CDC_server = FALSE), #
+		disease = "sars", all_years_flag = T, all_cad_clim = T)#
+#
+	mydata = test$mydata#
+#
+	all_years_epi = test$all_years_epi#
+	FY = mydata$FY#
+	my.name = mydata$model$name#
+	values = mydata$model$raw#
+	days = mydata$days#
+	ndays = mydata$nperiods#
+	iselect = seq(from = 1, to = ndays, b = 7)#
+	mon = epidate(mydata$dates, format = "%m/%d/%y")$month2#
+	mday = epidate(mydata$dates, format = "%m/%d/%y")$mday#
+	x.axis.labels = rep("", ndays) #
+	x.axis.labels[iselect] = paste0(mon[iselect], "-", mday[iselect]) #
+	df2 = data.frame(x=1:ndays, values = values, type = rep(my.name, ndays))#
+	main = paste0(my.name," ",FY," SARS  Cases")#
+#
+	icount = icount + 1#
+	p[[icount]] = ggplot(df2, aes(x = x, y = values)) +#
+    geom_bar(stat = "identity", fill = colvec[i], show.legend=FALSE) +#
+    scale_x_continuous(name = "",  breaks = 1:ndays, #
+    labels = x.axis.labels) +#
+    #scale_x_continuous(name = "") +    #
+    scale_y_continuous(name = " ") +#
+    ggtitle(main) +#
+    theme(axis.text.x=element_text(angle=90,hjust=1))		#
+}
+p[[1]]
+p[[2]]
+p[[3]]
+p[[4]]
+p[[5]]
+mydata$dates
+mydata$days
+mydata$cadence
+source("~/Dropbox/LEPR03/michal/ebola/codes/util.R")
+mod_name_vec = c("CA", "HK", "VN", "SG", "CN")#
+#
+colvec = c("steelblue3","firebrick3",'mediumpurple3','salmon','tan3')#
+nc = length(mod_name_vec)#
+#
+p = list()#
+icount = 0#
+#
+for (i in 1:nc) {#
+	test = get.DICE.data(data_source = NULL, mod_level = 2, mod_name = c(NAME_2 = mod_name_vec[i]), fit_names = "all", #
+		fit_level = 2, RegState = NULL, year = 2003, db_opts = list(DICE_db = "predsci", CDC_server = FALSE), #
+		disease = "sars", all_years_flag = T, all_cad_clim = T)#
+#
+	mydata = test$mydata#
+#
+	all_years_epi = test$all_years_epi#
+	FY = mydata$FY#
+	my.name = mydata$model$name#
+	values = mydata$model$raw#
+	days = mydata$days#
+	ndays = mydata$nperiods#
+	iselect = seq(from = 1, to = ndays, b = 7)#
+	mon = epidate(mydata$dates, format = "%m/%d/%y")$month2#
+	mday = epidate(mydata$dates, format = "%m/%d/%y")$mday#
+	x.axis.labels = rep("", ndays) #
+	x.axis.labels[iselect] = paste0(mon[iselect], "-", mday[iselect]) #
+	df2 = data.frame(x=1:ndays, values = values, type = rep(my.name, ndays))#
+	main = paste0(my.name," ",FY," SARS  Cases")#
+#
+	icount = icount + 1#
+	p[[icount]] = ggplot(df2, aes(x = x, y = values)) +#
+    geom_bar(stat = "identity", fill = colvec[i], show.legend=FALSE) +#
+    scale_x_continuous(name = "",  breaks = 1:ndays, #
+    labels = x.axis.labels) +#
+    #scale_x_continuous(name = "") +    #
+    scale_y_continuous(name = " ") +#
+    ggtitle(main) +#
+    theme(axis.text.x=element_text(angle=90,hjust=1))		#
+}#
+gg.multiplot(plotlist = p, n.rows = 2, n.cols = 3, n.cols.per.graph = 1)
+multiplot(plotlist = p, file = 'sars_2003.png', cols = 3, width = 1500, height = 1000, byrow = TRUE)
+q()

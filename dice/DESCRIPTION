@@ -1,0 +1,36 @@
+Package: DICE
+Type: Package
+Title: DICE: Dynamics of Interacting Community Epidemics
+Version: 3.0
+Date: 2019-01-17
+Author: Predictive Science Inc.
+Maintainer: Who to complain to <mbennun@predsci.com>
+Depends:
+    tools,
+    coda,
+    sp,
+    lubridate (>= 1.7.0),
+    MASS,
+    cdcfluview (>= 0.7.0),
+    ggplot2,
+    grid,
+    scales,
+    reshape2,
+    ggmap,
+    raster,
+    dplyr,
+    RMySQL,
+    RPostgreSQL,
+    countrycode,
+    forecast
+Requries: Sweave
+SystemRequirements: 
+NeedsCompilation: yes
+LazyData: yes
+Description: DICE: A Tool for Global Direct and Vector Borne Disease Modeling
+License: Currently Used by PSI
+Repository: https://github.com/predsci/DICE
+RoxygenNote: 6.0.1
+Comment: Removed package dependencies:  maps, mapdata, maptools,
+    mapproj, rworldmap, fields, WDI, RColorBrewer, mcmcplots, 
+    raster. And rgeos which has a problem on Linux
