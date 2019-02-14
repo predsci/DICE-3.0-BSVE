@@ -325,7 +325,7 @@ writeCSV <- function(mydata = NULL, run.list = NULL, tab = NULL, tab.model = NUL
    if (mydata$cadence == "Weekly") {
    	cadence = 7
    	tps = mydata$weeks
-   	weeks = weeks
+   	weeks = mydata$weeks
    } else if (mydata$cadence == "Monthly") {
    	cadence = 31
    	tps = mydata$months

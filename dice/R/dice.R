@@ -156,7 +156,7 @@ runDICE <- function(data_source = NULL, year = 2016, mod_level = 2, fit_level = 
 
      if(tolower(disease) == 'zika')  Tg = 7.0
      
-     if(tolower(diseas) == 'sars') Tg = 4.0
+     if(tolower(disease) == 'sars') Tg = 4.0
   }
 
 

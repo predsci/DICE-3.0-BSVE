@@ -2164,15 +2164,10 @@ get_disease_data <- function(mod_level=2, fit_level=3, mod_name=c(NAME_2="BR"), 
   }
 
   cat("Downloading incidence and climate data......")
-  if (length(sql_data_source)>0 && sql_data_source==26) {
-    qDB = OpenCon("quidel")
-    query_string = paste0("SELECT * FROM quidel_data ", where_string, "ORDER BY master_key, date")
-    inc_data = dbGetQuery(qDB, statement=query_string)
-    dbDisconnect(qDB)
-  } else {
-    query_string = paste0("SELECT * FROM ",disease,"_data ", where_string, "ORDER BY master_key, source_key, date")
-    inc_data = dbGetQuery(myDB, statement=query_string)
-  }
+  
+  query_string = paste0("SELECT * FROM ",disease,"_data ", where_string, "ORDER BY master_key, source_key, date")
+  inc_data = dbGetQuery(myDB, statement=query_string)
+  
 
 
   # check if any data was returned
@@ -2394,18 +2389,7 @@ OpenCon <- function(sql_db='PredSci') {
     password="vHFUYR52"
     host="dataservices-postgresql.bsvecosystem.net"
     dbname="displaydicedata"
-  } else if (tolower(sql_db)=="quidel") {
-    drv = MySQL()
-    user = "quidel_guest"
-    password = "vsUVDVppfqHzJyZ4"
-    dbname = "quidel_data"
-    port = 3306
-    if (Sys.info()["nodename"]=="Q") {
-      host="shadow"
-    } else {
-      host="shadow.predsci.com"
-    }
-  }
+  } 
 
   for (ii in 1:10) {
     # attempt to establish the database connection
